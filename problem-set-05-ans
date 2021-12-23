@@ -1,1 +1,20 @@
+1.select a.m_name from musician a
+join concert b on a.m_no = b.concert_orginiser 
+where a.born>"1997-02-01" and concert_venue = "Assembly Rooms"
 
+2.select a.* from musician a
+join performance b on a.m_no = b.perf_is 
+join place c on a born_in=c.place_no
+where (b.instrument="violin" or b.instrument="guitar") and place_country='England'
+
+3.select a.m_name,b.place_town,c.con_date from musician a
+join place b on a.born_in=b.place_no
+join concert c on b.place_no=c.concert_in
+where place_country="USA"
+
+
+4.select a.count(concert_no),a.concer_venue,a.con_date,c.c_title from concert a
+join musician b on a.concert_organiser=b.m_no
+join composer d on d.cmpr_no=b.m_no
+join composition c on c.c_no=d.cmpn_no 
+where b.m_name="Andy Jones"  
