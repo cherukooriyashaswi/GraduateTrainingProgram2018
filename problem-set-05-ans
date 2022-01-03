@@ -18,3 +18,28 @@ join musician b on a.concert_organiser=b.m_no
 join composer d on d.cmpr_no=b.m_no
 join composition c on c.c_no=d.cmpn_no 
 where b.m_name="Andy Jones"  
+
+-- Question 5
+select  a.instrument,avg(a.cnt) as average from 
+(select instrument,count(perf_is) cnt from performer group by instrument)a;
+
+-- Question 6
+select m_no,m_name,born from musician a join instrument b  where a.died='NA' and m_no=perf_no and b.instrument=
+(select instrument from performer where perf_no=(select m_no from musician where m_name='Theo'));
+
+-- Question 7
+select band_no,band_name from  band where band_home>(select avg(band_home) from band);
+
+-- Question 8
+select m_name from musician a
+join composer b
+join concert c
+join place c on a.born_in=c.place_no
+where a.m_no=b.comp_is and a.m_no=c.concert_orgniser and place_country='Britian';
+
+-- Question 9
+select instrument,count(instrument),count(perf_is) from performer group by instrument
+order by count(instrument) limit 1;
+
+-- Question 10
+with data as (select comp_type from composer where comp_is=(select m_no from musician where m_name='Sue Little')
