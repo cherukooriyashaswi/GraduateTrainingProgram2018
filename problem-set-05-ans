@@ -43,3 +43,17 @@ order by count(instrument) limit 1;
 
 -- Question 10
 with data as (select comp_type from composer where comp_is=(select m_no from musician where m_name='Sue Little')
+
+-- Question 11
+select m_name,born_in from musician where born_in=(select place_no where place_town=(select place_town a from place 
+													join musician b on a.place_no=b.born_in
+													where b.m_name="James First"))
+                                                    
+-- Question 12
+select m_name,count(c.instrument),count(cmpn_no) from musician b
+join place a on a.place_no=b.born_in
+join performer c on b.m_no=c.perf_is
+join has_composed d on b.m_no=c.cmpr_no	
+where a.place_town='Britain'
+group by c.perf_is,d.cmpr_no
+
